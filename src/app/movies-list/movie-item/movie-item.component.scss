@@ -1,0 +1,35 @@
+
+
+.movie-card {
+
+  height: calc(100% - 3rem);
+
+  &__image-container {
+    position: relative;
+  }
+
+  &__rating {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    color: lightgray;
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+  }
+
+  &__title {
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      color: rgb(1, 180, 228);
+    }
+  }
+
+}

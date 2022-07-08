@@ -1,0 +1,18 @@
+
+
+<div class="container mt-4">
+
+    <mat-paginator
+      [length]="total_movies"
+      [pageSize]="20"
+      [pageSizeOptions]="[20]"
+      (page)="pageChange($event)"
+      [pageIndex]="page"
+      aria-label="Select page"
+    >
+  </mat-paginator>
+
+  <app-movies-list [movies]="movies"></app-movies-list>
+
+
+</div>

@@ -1,0 +1,27 @@
+<mat-card class="movie-card mt-4 mb-4">
+  <mat-card-header>
+
+    <!-- <mat-card-title> {{ movie.title}}</mat-card-title> -->
+  </mat-card-header>
+  <div class="movie-card__image-container">
+
+    <a [routerLink]="['/movies', movie.id]">
+      <img [src]="movie.poster_path" [alt]="movie.title" class="w-100 movie-card__image"/>
+    </a>
+
+    <div class="movie-card__rating roundend">
+
+      {{ movie.vote_average}}
+    </div>
+  </div>
+  <mat-card-content>
+    <a [routerLink]="['/movies', movie.id]" class="movie-card__title">
+        <h2>
+          {{ movie.title }}
+        </h2>
+    </a>
+  </mat-card-content>
+
+</mat-card>
+
+

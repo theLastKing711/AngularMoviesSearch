@@ -1,0 +1,10 @@
+export interface ITokenSuccess {
+  success: boolean,
+  expires_at: string,
+  guest_session_id: string
+}
+
+export interface IAuthFail {
+  status_message: string,
+  status_code: number
+}
