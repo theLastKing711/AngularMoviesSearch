@@ -15,7 +15,7 @@ import { MoviesComponent } from './movies/movies.component';
 import {MatIconModule} from '@angular/material/icon';
 import { SearchComponent } from './search/search.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
-import { StarRatingModule } from 'angular-star-rating';
+// import { StarRatingModule } from 'angular-star-rating';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { StarRatingModule } from 'angular-star-rating';
     MatCardModule,
     MatPaginatorModule,
     MatIconModule,
-    StarRatingModule
+    // StarRatingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
