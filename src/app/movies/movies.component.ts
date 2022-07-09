@@ -21,14 +21,12 @@ export class MoviesComponent implements OnInit, OnDestroy {
   loading!: boolean;
 
   moviesSubscription!: Subscription;
-  searchSubscription!: Subscription;
-  searchInputSubscription!: Subscription;
 
   constructor(private movieService: MovieService,private searchService: SearchService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
-    this.searchInputSubscription = this.route.queryParamMap.subscribe(param => {
+    this.route.queryParamMap.subscribe(param => {
 
       let pageNumber: number;
 
@@ -80,15 +78,6 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
     this.moviesSubscription.unsubscribe();
 
-    if(this.searchSubscription)
-    {
-      this.searchSubscription.unsubscribe();
-    }
-
-    if(this.searchInputSubscription)
-    {
-      this.searchInputSubscription.unsubscribe();
-    }
   }
 
 }

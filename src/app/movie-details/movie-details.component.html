@@ -6,9 +6,9 @@
 
   <div *ngIf="! loading">
 
-  <section [ngStyle]="{ 'background-image': 'url(' + movie.backdrop_path + ')' }" class="first-section d-flex align-items-center" >
+  <section [ngStyle]="{ 'background-image': 'url(' + movie.backdrop_path + ')' }" class="movie-ratings d-flex align-items-center" >
 
-    <div class="container first-section__container">
+    <div class="container movie-ratings__container">
       <div class="movie-details d-flex align-items-center gap-4">
         <img [src]="movie.poster_path" [alt]="movie.title" class="movie-details__image rounded"/>
         <div class="movie-details__details">
