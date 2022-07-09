@@ -25,16 +25,9 @@
     height: 100%;
     z-index: 1;
   }
-  margin-bottom: 6rem;
+  margin-bottom: 3rem;
 }
 
-
-
-.backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
-  position: relative;
-  z-index: 1;
-}
 
 .movie-details {
   &__image {
@@ -83,6 +76,34 @@
   }
 
 
+  @media screen and (max-width: 800px) {
+
+    flex-direction: column;
+    text-align: center;
+
+
+    &__details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__image {
+      margin-top: 2rem;
+      width: 60%;
+    }
+
+  }
+
+}
+
+.rating {
+  margin-bottom: 3rem;
+
+  &__stars {
+    cursor: pointer;
+  }
+
 }
 
 .movie-recommendations {
@@ -90,7 +111,7 @@
 
   &__container {
     overflow-y: auto;
-    padding: 1rem 0;
+    // padding: 1rem 0;
   }
 
   &__image {

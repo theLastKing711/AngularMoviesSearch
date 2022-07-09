@@ -1,6 +1,6 @@
 
 .search {
-  &__input-container {
+  &__container {
     position: relative;
   }
 
@@ -22,7 +22,7 @@
     padding: 8px;
 
     &:focus {
-      transform: scale(1.15);
+      transform: scale(1.05);
       outline: none;
     }
 

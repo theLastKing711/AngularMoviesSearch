@@ -1,16 +1,19 @@
+import { StorageService } from './storage.service';
+import { IResponse } from './../types/auth';
 import { IPaginationResult } from './../types/pagination';
 import { IMovieResult, IMovieDetails, IMovieRecommendation } from './../types/movie';
 import { environment } from './../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, map, switchMap, tap } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private storageService: StorageService) { }
 
 
   // private transofrmToMovie(movie: IMovie):
@@ -123,6 +126,28 @@ export class MovieService {
       map(movie => ({movies: this.mapMoviePathImages(movie.results), page: movie.page, total_movies: movie.total_results})),
     )
 
+  }
+
+  rateMovie(id: number,  rating: number) {
+    const ratingUrl  = `${environment.app_url}movie/${id}/rating`;
+
+
+    const session_id = this.storageService.getFromStroage<string>("guest_token") || ""
+
+
+    let httpParams = new HttpParams();
+
+    const params = httpParams.set('api_key', environment.api_key).set('guest_session_id', session_id)
+
+    let headers = new HttpHeaders()
+    headers .set('content-type', 'application/json')
+
+    const payload = {value: rating}
+
+
+    return this.httpClient.post<IResponse>(ratingUrl, payload, {params: params, headers: headers}).pipe(
+      tap(res => console.log("response", res))
+    )
   }
 
 }

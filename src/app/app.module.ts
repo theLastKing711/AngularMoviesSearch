@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,7 +14,12 @@ import { MoviesComponent } from './movies/movies.component';
 import {MatIconModule} from '@angular/material/icon';
 import { SearchComponent } from './search/search.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
-// import { StarRatingModule } from 'angular-star-rating';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { StarRatingModule } from 'angular-star-rating';
+import { MovieSnackBarComponent } from './movie-snack-bar/movie-snack-bar.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,8 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
     MoviesComponent,
     SearchComponent,
     MovieDetailsComponent,
+    MovieSnackBarComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +42,10 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
     MatCardModule,
     MatPaginatorModule,
     MatIconModule,
-    // StarRatingModule
+    MatButtonModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+   StarRatingModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

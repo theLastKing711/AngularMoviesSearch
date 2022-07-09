@@ -25,11 +25,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logoutGuest() {
-
     this.storageService.removeFromStorage("guest_token")
-    // this.authService.logoutGuest().subscribe(() => {
-
-    // })
   }
 
 }

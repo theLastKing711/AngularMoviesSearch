@@ -4,7 +4,7 @@ export interface ITokenSuccess {
   guest_session_id: string
 }
 
-export interface IAuthFail {
+export interface IResponse {
   status_message: string,
   status_code: number
 }
