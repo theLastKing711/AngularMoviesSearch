@@ -1,9 +1,10 @@
+  <div class="search__container">
+    <input type="search" placeholder="search movies" class="search__input" (focus)="handleSearchFocus()" (blur)="handleSearchBlur()" (keyup)="handleSearchChange($event)"/>
+    <mat-icon aria-hidden="false" aria-label="search icon" class="search__icon">search</mat-icon>
+      <ul class="search-list">
+        <li *ngFor="let movie of moviesList" [routerLink]="['/', movie.id]" class="search-list__link">
+            {{ movie.name}}
+        </li>
 
-    <div class="search__container">
-      <input type="search" placeholder="search movies" class="search__input" (keyup)="handleSearchChange($event)"/>
-      <mat-icon aria-hidden="false" aria-label="search icon" class="search__icon">search</mat-icon>
-    </div>
-
-
-
-
+      </ul>
+  </div>

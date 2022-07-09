@@ -57,3 +57,9 @@ export interface IMovieRecommendation extends IMovieBase{
   popularity: number,
   vote_average: number
 }
+
+
+export  interface IMovieItem {
+  id: number,
+  name: string,
+}

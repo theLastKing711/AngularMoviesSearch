@@ -1,16 +1,17 @@
 import { SearchService } from './../search.service';
 import { IMovieResult } from './../../types/movie';
 import { MovieService } from './../movie.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { debounceTime, skip, Subscription } from 'rxjs';
-import { OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.scss']
 })
+
 export class MoviesComponent implements OnInit, OnDestroy {
 
   movies!: IMovieResult[];
@@ -23,28 +24,28 @@ export class MoviesComponent implements OnInit, OnDestroy {
   searchSubscription!: Subscription;
   searchInputSubscription!: Subscription;
 
-  constructor(private movieService: MovieService,private searchService: SearchService) { }
+  constructor(private movieService: MovieService,private searchService: SearchService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
-    this.getMovies();
+    this.searchInputSubscription = this.route.queryParamMap.subscribe(param => {
 
-    this.searchInputSubscription = this.searchService
-      .query
-      .pipe(debounceTime(700), skip(1)).subscribe(query => {
+      let pageNumber: number;
 
+      const pageParam = param.get('page')
 
-        this.loading = true;
+      if(pageParam != null) {
+        pageNumber = parseInt(pageParam)
+      }
+      else {
+        pageNumber = 1;
+      }
 
-        if(query === "") {
-          this.getMovies();
-        }
-
-        else {
-          this.searchMovies(query, 1)
-        }
+      this.getMovies(pageNumber)
 
     })
+
+
   }
 
   getMovies(pageNumber : number = 1) {
@@ -53,7 +54,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
     this.moviesSubscription = this.movieService.getMovies(pageNumber).subscribe(items => {
 
-      const { movies, page, total_movies }  = items;
+      const { total_movies }  = items;
       this.movies = [...items.movies]
       this.page = items.page - 1;
       this.total_movies = total_movies;
@@ -61,44 +62,23 @@ export class MoviesComponent implements OnInit, OnDestroy {
       this.loading = false;
 
     })
-  }
 
-  searchMovies(query: string, nextPage?: number) {
-
-    this.loading = true;
-
-    this.searchSubscription = this.movieService.searchMovies(query, nextPage).subscribe(items => {
-      const { movies, page, total_movies }  = items;
-      this.movies = [...items.movies]
-      this.page = items.page - 1;
-      this.total_movies = total_movies;
-
-      this.loading = false;
-
-    })
   }
 
 
   pageChange(e: PageEvent) {
-    const nextPage = e.pageIndex + 1;
 
-    const query = this.searchService.query.getValue()
+      const nextPage = e.pageIndex + 1;
 
+      this.page = nextPage;
 
-    if(query !== "") {
-
-      this.searchMovies(query, nextPage)
-    }
-    else {
-      this.getMovies(nextPage)
-    }
+      this.router.navigate(['/'], { queryParams: { page: nextPage } })
 
   }
 
   ngOnDestroy() {
 
     this.moviesSubscription.unsubscribe();
-
 
     if(this.searchSubscription)
     {

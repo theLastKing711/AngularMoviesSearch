@@ -1,11 +1,11 @@
 import { StorageService } from './storage.service';
 import { IResponse } from './../types/auth';
 import { IPaginationResult } from './../types/pagination';
-import { IMovieResult, IMovieDetails, IMovieRecommendation } from './../types/movie';
+import { IMovieResult, IMovieDetails, IMovieRecommendation, IMovieItem } from './../types/movie';
 import { environment } from './../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, map, switchMap, tap } from 'rxjs';
+import { forkJoin, map, switchMap, tap, Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -107,7 +107,7 @@ export class MovieService {
   }
 
 
-  searchMovies(query: string, pageNumber?: number) {
+  searchMovies(query: string, pageNumber?: number): Observable<IMovieItem[]> {
 
 
     const searchUrl  = environment.app_url + "search/movie";
@@ -122,10 +122,9 @@ export class MovieService {
                              .set('page', page);
 
     return this.httpClient.get<IPaginationResult<IMovieResult>>(searchUrl, {params: params}).pipe(
-      tap(movies => console.log("movie", movies)),
-      map(movie => ({movies: this.mapMoviePathImages(movie.results), page: movie.page, total_movies: movie.total_results})),
+      map(response => response.results),
+      map(movies => movies.map(item => ({id: item.id, name: item.title}) ))
     )
-
   }
 
   rateMovie(id: number,  rating: number) {

@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path: "movies", component: MoviesComponent},
-  {path: "movies/:id", component: MovieDetailsComponent}
+  {path: "", component: MoviesComponent},
+  {path: ":id", component: MovieDetailsComponent}
 ];
 
 @NgModule({

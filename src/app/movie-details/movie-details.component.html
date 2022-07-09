@@ -67,12 +67,12 @@
       <h2 class="bold">Recommendations</h2>
       <div class="d-flex gap-4 align-items-between">
         <div *ngFor="let recommendation of movieReommendations" class="movie-recommendations__item">
-          <a [routerLink]="['/movies', recommendation.id]" class="movie-recommendations__link">
+          <a [routerLink]="['/', recommendation.id]" class="movie-recommendations__link">
             <h3>
               {{ recommendation.title }}
             </h3>
           </a>
-          <a [routerLink]="['/movies', recommendation.id]" class="movie-recommendations__link">
+          <a [routerLink]="['/', recommendation.id]" class="movie-recommendations__link">
             <img [src]="recommendation.poster_path" [alt]="recommendation.title" class="movie-recommendations__image rounded"/>
           </a>
         </div>
