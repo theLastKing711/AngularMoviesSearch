@@ -29,8 +29,6 @@ export class MovieDetailsComponent implements OnInit {
   ngOnInit(): void {
     this._Activatedroute.paramMap.subscribe(params => {
 
-
-
       const p = params.get('id') ?? "1";
 
       this.id= parseInt(p);
