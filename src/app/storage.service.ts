@@ -39,7 +39,6 @@ export class StorageService {
     }
 
     if(typeof item !== "string" && item != null) {
-      console.log("item", item)
       return JSON.parse(item) as T
     }
 

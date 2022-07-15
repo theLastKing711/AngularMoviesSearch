@@ -59,7 +59,6 @@ export class MovieService {
 
 
     return this.httpClient.get<IPaginationResult<IMovieResult>>(moviesUrl, {params: params}).pipe(
-      tap(movies => console.log("movies", movies)),
       map(movie => ({movies: this.mapMoviePathImages(movie.results), page: movie.page, total_movies: movie.total_results})),
       )
   }
@@ -144,9 +143,7 @@ export class MovieService {
     const payload = {value: rating}
 
 
-    return this.httpClient.post<IResponse>(ratingUrl, payload, {params: params, headers: headers}).pipe(
-      tap(res => console.log("response", res))
-    )
+    return this.httpClient.post<IResponse>(ratingUrl, payload, {params: params, headers: headers});
   }
 
 }

@@ -25,7 +25,6 @@ export class AuthService {
     return this.httpClient.get<ITokenSuccess>(guestSessionUrl, { params: params})
                    .pipe(
                     map(result => {
-                      console.log("result", result)
                         this.storageService.addToStorage("guest_token", result.guest_session_id)
                     })
                    )
