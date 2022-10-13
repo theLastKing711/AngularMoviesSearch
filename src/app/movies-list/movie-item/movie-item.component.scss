@@ -1,9 +1,8 @@
 .movie-card {
-  height: calc(100% - 3rem);
+  height: 100%;
 
   &__image-container {
     position: relative;
-    height: 411px;
   }
 
   &__rating {

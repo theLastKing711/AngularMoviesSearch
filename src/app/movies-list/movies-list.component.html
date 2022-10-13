@@ -1,6 +1,5 @@
-<div class="row">
-    <div *ngFor="let item of movies" class="col-lg-3 col-md-4">
-      <app-movie-item  [movie]="item" ></app-movie-item>
-    </div>
+<div class="movies-list">
+  <div *ngFor="let item of movies">
+    <app-movie-item [movie]="item"></app-movie-item>
+  </div>
 </div>
-
