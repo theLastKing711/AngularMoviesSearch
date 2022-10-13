@@ -1,43 +1,47 @@
-
-
 <div *ngIf="loading">
   <app-spinner></app-spinner>
 </div>
 
-  <div *ngIf="! loading">
-
-  <section [ngStyle]="{ 'background-image': 'url(' + movie.backdrop_path + ')' }" class="movie-ratings d-flex align-items-center" >
-
+<div *ngIf="!loading">
+  <section
+    [ngStyle]="{ 'background-image': 'url(' + movie.backdrop_path + ')' }"
+    class="movie-ratings d-flex align-items-center"
+  >
     <div class="container movie-ratings__container">
       <div class="movie-details d-flex align-items-center gap-4">
-        <img [src]="movie.poster_path" [alt]="movie.title" class="movie-details__image rounded"/>
+        <img
+          [src]="movie.poster_path"
+          [alt]="movie.title"
+          class="movie-details__image rounded"
+        />
         <div class="movie-details__details">
           <header class="mb-4">
-            <h1 class="m-0">{{ movie.title }} <span class="movie-details__year">({{ movie.release_date | date: 'y'}})</span> </h1>
-              <div class="d-flex align-items-center gap-1">
-                <ul class="movie-details__genres-list d-flex p-0 m-0">
-                  <li *ngFor="let genre of movie.genres">{{ genre.name}}</li>
-                </ul>
-                <div class="movie-details__separator">
-
-                </div>
-                <div class="movie-details__runtime">
-                  {{ movie.runtime}}m
-                </div>
+            <h1 class="m-0">
+              {{ movie.title }}
+              <span class="movie-details__year"
+                >({{ movie.release_date | date: "y" }})</span
+              >
+            </h1>
+            <div class="d-flex align-items-center gap-1">
+              <ul class="movie-details__genres-list d-flex p-0 m-0">
+                <li *ngFor="let genre of movie.genres">{{ genre.name }}</li>
+              </ul>
+              <div class="movie-details__separator"></div>
+              <div class="movie-details__runtime">{{ movie.runtime }}m</div>
             </div>
           </header>
 
-          <div class="movie-details__user-rating-container d-flex gap-2 align-items-center mb-4">
-              <div class="movie-details__user-rating">
-                {{ movie.vote_average}} / 10
-              </div>
-              <div class="movie-details__user-rating-title">
-                user score
-              </div>
+          <div
+            class="movie-details__user-rating-container d-flex gap-2 align-items-center mb-4"
+          >
+            <div class="movie-details__user-rating">
+              {{ movie.vote_average.toFixed(1) }} / 10
+            </div>
+            <div class="movie-details__user-rating-title">user score</div>
           </div>
           <h2 class="mb-2">overview</h2>
           <p>
-            {{ movie.overview}}
+            {{ movie.overview }}
           </p>
         </div>
       </div>
@@ -46,34 +50,50 @@
 
   <section class="rating">
     <div class="container">
-      <div *ngIf="isAuthenticated()" class="d-flex align-items-center" >
-        <h3 class="rating-title m-0">
-          Rate Movie:
-        </h3>
+      <div *ngIf="isAuthenticated()" class="d-flex align-items-center">
+        <h3 class="rating-title m-0">Rate Movie:</h3>
         <div class="rating__stars">
-          <star-rating [starType]="'svg'" [rating]="rating" (ratingChange)="changeRating($event)"></star-rating>
+          <star-rating
+            [starType]="'svg'"
+            [rating]="rating"
+            (ratingChange)="changeRating($event)"
+          ></star-rating>
         </div>
-        <button mat-raised-button color="primary" (click)="submitRating()">Submit</button>
+        <button mat-raised-button color="primary" (click)="submitRating()">
+          Submit
+        </button>
       </div>
-      <div *ngIf="! isAuthenticated()">
+      <div *ngIf="!isAuthenticated()">
         <h3 class="m-0">Login to rate the movie</h3>
       </div>
     </div>
   </section>
 
-
   <section class="movie-recommendations">
-    <div class="movie-recommendations__container  container">
+    <div class="movie-recommendations__container container">
       <h2 class="bold">Recommendations</h2>
       <div class="d-flex gap-4 align-items-between">
-        <div *ngFor="let recommendation of movieReommendations" class="movie-recommendations__item">
-          <a [routerLink]="['/', recommendation.id]" class="movie-recommendations__link">
+        <div
+          *ngFor="let recommendation of movieReommendations"
+          class="movie-recommendations__item"
+        >
+          <a
+            [routerLink]="['/', recommendation.id]"
+            class="movie-recommendations__link"
+          >
             <h3>
               {{ recommendation.title }}
             </h3>
           </a>
-          <a [routerLink]="['/', recommendation.id]" class="movie-recommendations__link">
-            <img [src]="recommendation.poster_path" [alt]="recommendation.title" class="movie-recommendations__image rounded"/>
+          <a
+            [routerLink]="['/', recommendation.id]"
+            class="movie-recommendations__link"
+          >
+            <img
+              [src]="recommendation.poster_path"
+              [alt]="recommendation.title"
+              class="movie-recommendations__image rounded"
+            />
           </a>
         </div>
       </div>
