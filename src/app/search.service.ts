@@ -7,7 +7,9 @@ import { BehaviorSubject, Subject, Observable, of, debounceTime } from 'rxjs';
   providedIn: 'root',
 })
 export class SearchService {
-  movies: BehaviorSubject<IMovieItem[]> = new BehaviorSubject<IMovieItem[]>([]);
+  private movies: BehaviorSubject<IMovieItem[]> = new BehaviorSubject<
+    IMovieItem[]
+  >([]);
 
   movies$: Observable<IMovieItem[]> = this.movies.asObservable();
 
