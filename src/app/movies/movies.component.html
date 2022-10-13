@@ -1,22 +1,18 @@
-
-
-<div *ngIf="loading">
+<div *ngIf="(movies$ | async) == null">
   <app-spinner></app-spinner>
 </div>
 
-<div class="container mt-4" *ngIf="!loading">
-
-    <mat-paginator
-      class="d-flex justify-content-center"
-      [length]="total_movies"
-      [pageSize]="20"
-      [pageSizeOptions]="[20]"
-      (page)="pageChange($event)"
-      [pageIndex]="page"
-      aria-label="Select page"
-    >
+<div class="container mt-4" *ngIf="movies$ | async as moviesList">
+  <mat-paginator
+    class="d-flex justify-content-center"
+    [length]="moviesList.total_movies"
+    [pageSize]="20"
+    [pageSizeOptions]="[20]"
+    (page)="pageChange($event)"
+    [pageIndex]="moviesList.page - 1"
+    aria-label="Select page"
+  >
   </mat-paginator>
 
-  <app-movies-list [movies]="movies"></app-movies-list>
-
+  <app-movies-list [movies]="moviesList.movies"></app-movies-list>
 </div>
