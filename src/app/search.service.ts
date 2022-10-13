@@ -1,17 +1,28 @@
+import { MovieService } from './movie.service';
+import { IMovieItem } from 'src/types/movie';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { BehaviorSubject, Subject, Observable, of, debounceTime } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchService {
-  query: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  movies: BehaviorSubject<IMovieItem[]> = new BehaviorSubject<IMovieItem[]>([]);
 
-  // query$: Observable<string> = this.query.asObservable();
+  movies$: Observable<IMovieItem[]> = this.movies.asObservable();
 
-  // nextQuery(query: string): void {
-  //   this.query.next(query);
-  // }
+  constructor(private movieService: MovieService) {}
 
-  constructor() {}
+  searchMovies(query: string, pageNumber: number | undefined): void {
+    this.movieService
+      .searchMovies(query, pageNumber)
+      .pipe(debounceTime(700))
+      .subscribe((data) => {
+        this.movies.next(data);
+      });
+  }
+
+  restMovies(): void {
+    this.movies.next([]);
+  }
 }

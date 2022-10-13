@@ -1,4 +1,4 @@
-import { debounceTime, Subscription } from 'rxjs';
+import { debounceTime, Subscription, Observable, filter } from 'rxjs';
 import { MovieService } from './../movie.service';
 import { SearchService } from './../search.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -7,56 +7,40 @@ import { IMovieItem } from 'src/types/movie';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit, OnDestroy {
-
-  moviesList!:  IMovieItem[];
+export class SearchComponent implements OnInit {
   query!: string;
 
-  searchSubscription!: Subscription
+  moviesList$: Observable<IMovieItem[]> = this.searchService.movies$;
 
-  constructor(private searchService: SearchService, private movieService: MovieService) { }
+  constructor(private searchService: SearchService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   searchMovies(query: string) {
-    this.movieService.searchMovies(query, 1)
-                     .pipe(debounceTime(700))
-                     .subscribe(movies => {
-                      this.moviesList = [...movies];
-                     })
+    this.searchService.searchMovies(query, 1);
   }
 
   handleSearchChange(e: any) {
     const query = e.target.value;
     this.query = query;
-    if(query) {
-      this.searchMovies(query)
-    }
-    else {
-      this.moviesList = []
+    if (query) {
+      this.searchMovies(query);
+    } else {
+      this.searchService.restMovies();
     }
   }
 
   handleSearchFocus() {
-
-    if(this.query)
-    {
-      this.searchMovies(this.query)
+    if (this.query) {
+      this.searchMovies(this.query);
     }
-
   }
 
   handleSearchBlur() {
     setTimeout(() => {
-      this.moviesList = [];
-    }, 90)
+      this.searchService.restMovies();
+    }, 150);
   }
-
-  ngOnDestroy(): void {
-      this.searchSubscription.unsubscribe()
-  }
-
 }

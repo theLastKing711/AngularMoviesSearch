@@ -20,7 +20,6 @@ export class MoviesComponent implements OnInit {
 
   constructor(
     private movieService: MovieService,
-    private searchService: SearchService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
