@@ -1,11 +1,18 @@
 <mat-toolbar color="primary" class="app-header flex">
-    <a class="app-header__title" [routerLink]="['/']">Movie DB</a>
-      <app-search></app-search>
-    <div class="app-header__action" (click)="logoutGuest()" *ngIf="isGuestLogged()">
-      Logout
-    </div>
-    <div class="app-header__action" (click)="loginGuest()" *ngIf="! isGuestLogged()">
-      Login as Guest
-    </div>
-
+  <a class="app-header__title" [routerLink]="['/']">Movie DB</a>
+  <app-search></app-search>
+  <div
+    class="app-header__action"
+    (click)="logoutGuest()"
+    *ngIf="isGuestLogged()"
+  >
+    Logout
+  </div>
+  <button
+    class="app-header__action--button"
+    (click)="loginGuest()"
+    *ngIf="!isGuestLogged()"
+  >
+    Login as Guest
+  </button>
 </mat-toolbar>

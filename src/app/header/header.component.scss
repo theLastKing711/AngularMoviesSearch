@@ -9,6 +9,13 @@
 
   &__action {
     cursor: pointer;
+
+    &--button {
+      background-color: transparent;
+      border: none;
+      color: wheat;
+      font-weight: 500;
+    }
   }
 
   @media screen and (max-width: 800px) {
@@ -17,5 +24,4 @@
 
     min-height: 150px !important;
   }
-
 }
