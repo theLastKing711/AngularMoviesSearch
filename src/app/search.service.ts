@@ -19,7 +19,7 @@ export class SearchService {
     this.movieService
       .searchMovies(query, pageNumber)
       .pipe(debounceTime(700))
-      .subscribe((data: number) => {
+      .subscribe((data) => {
         this.movies.next(data);
       });
   }
